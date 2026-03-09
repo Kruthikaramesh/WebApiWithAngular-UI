@@ -1,0 +1,52 @@
+<div class="container mt-4">
+
+    <h2>Delete Category</h2>
+
+    <div *ngIf="apiError" class="alert alert-danger">
+        {{ apiError }}
+    </div>
+
+    <div *ngIf="concurrencyError" class="alert alert-warning">
+        {{ concurrencyError }}
+    </div>
+
+    <div *ngIf="category" class="card">
+
+        <div class="card-body">
+
+            <h5 class="card-title text-danger">
+                Confirm Delete
+            </h5>
+
+            <p>
+                Are you sure you want to delete this category?
+            </p>
+
+            <ul>
+                <li>
+                    <strong>ID:</strong>
+                    {{ category.categoryId }}
+                </li>
+                <li>
+                    <strong>Name:</strong>
+                    {{ category.name }}
+                </li>
+                <li>
+                    <strong>Description:</strong>
+                    {{ category.description }}
+                </li>
+            </ul>
+
+            <button class="btn btn-danger" (click)="confirmDelete()">
+                Delete
+            </button>
+
+            <a class="btn btn-secondary ms-2" routerLink="/categories">
+                Cancel
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

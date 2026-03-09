@@ -1,0 +1,70 @@
+<div class="container mt-4">
+
+    <h2>Edit Category</h2>
+
+    <!-- API Error -->
+    <div *ngIf="apiError" class="alert alert-danger">
+        {{ apiError }}
+    </div>
+
+    <div *ngIf="concurrencyError" class="alert alert-warning">
+        {{ concurrencyError }}
+    </div>
+
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <!-- Category Name -->
+        <div class="mb-3">
+
+            <label class="form-label">Name</label>
+
+            <input class="form-control" type="text"
+                   formControlName="name">
+
+            <!-- Client validation -->
+            <div class="text-danger"
+                 *ngIf="categoryForm.controls.name.touched && categoryForm.controls.name.errors">
+
+                <div *ngIf="categoryForm.controls.name.errors['required']">
+                    Name is required.
+                </div>
+
+                <div *ngIf="categoryForm.controls.name.errors['minlength']">
+                    Name must be at least 2 characters.
+                </div>
+
+                <div *ngIf="categoryForm.controls.name.errors['maxlength']">
+                    Name cannot exceed 100 characters.
+                </div>
+
+            </div>
+
+            <!-- Server validation -->
+            <div class="text-danger" *ngIf="validationErrors['Name']">
+                {{ validationErrors['Name'][0] }}
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+
+            <!-- Description -->
+            <label class="form-label">Description</label>
+
+            <textarea class="form-control" rows="3"
+                      formControlName="description">
+            </textarea>
+
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+            Save Changes
+        </button>
+
+        <a routerLink="/categories" class="btn btn-secondary ms-2">
+            Cancel
+        </a>
+
+    </form>
+
+</div>

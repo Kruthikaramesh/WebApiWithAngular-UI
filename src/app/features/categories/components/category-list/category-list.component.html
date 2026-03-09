@@ -52,8 +52,9 @@
              [routerLink]="['/categories/edit', category.categoryId]">
             Edit
           </a>
-          <button class="btn btn-sm btn-danger">
-            Delete
+          <button class="btn btn-sm btn-danger"
+                  [routerLink]="['/categories/delete', category.categoryId]">
+              Delete
           </button>
         </td>
 

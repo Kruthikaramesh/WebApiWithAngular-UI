@@ -8,12 +8,12 @@ import { AppConfig } from '../config/app-config.interface';
 
 /**
  * Base service class for all API communication.
- * 
+ *
  * Responsibilities:
  * - Prefix API base URL
  * - Provide typed HTTP methods
  * - Centralize infrastructure concerns
- * 
+ *
  * Does NOT:
  * - Transform DTOs
  * - Handle UI logic
@@ -30,7 +30,7 @@ export class ApiBaseService {
 
   constructor(
     private readonly http: HttpClient,
-    @Inject(APP_CONFIG) private readonly config: AppConfig          // get the injected token from 'app-config.token.ts'
+    @Inject(APP_CONFIG) private readonly config: AppConfig			// get the injected token from 'app-config.token.ts'
   ) {
     this.baseUrl = config.apiBaseUrl;
   }
