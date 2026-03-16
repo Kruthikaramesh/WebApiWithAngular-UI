@@ -1,21 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
 import { provideRouter, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
 import { CategoryCreateComponent } from './category-create.component';
 import { CategoryService } from '../../services/category.service';
-
-
-/**
- * Dummy component used only for router testing.
- */
-@Component({
-    template: ''
-})
-class DummyComponent { }
-
 
 
 /**
@@ -71,10 +60,8 @@ describe('CategoryCreateComponent', () => {
 
             providers: [
 
-                // Router provider is required because the component uses router navigation.
-                provideRouter([
-                    { path: 'categories', component: DummyComponent }
-                ]),
+                // Router is required because the component performs navigation
+                provideRouter([]),
 
                 // Replace real service with mock implementation
                 {

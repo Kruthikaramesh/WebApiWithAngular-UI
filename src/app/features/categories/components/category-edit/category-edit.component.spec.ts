@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,16 +8,6 @@ import { vi } from 'vitest';
 import { CategoryEditComponent } from './category-edit.component';
 import { CategoryService } from '../../services/category.service';
 import { CategoryReadModel } from '../../models/category-read.model';
-
-
-/**
- * Dummy component used only for router testing.
- */
-@Component({
-    template: ''
-})
-class DummyComponent { }
-
 
 
 /**
@@ -95,10 +84,8 @@ describe('CategoryEditComponent', () => {
 
             providers: [
 
-                // Router provider is required because the component uses router navigation.
-                provideRouter([
-                    { path: 'categories', component: DummyComponent }
-                ]),
+                // Router support (required for navigation)
+                provideRouter([]),
 
                 // Replace real service with mock
                 { provide: CategoryService, useValue: categoryServiceMock },

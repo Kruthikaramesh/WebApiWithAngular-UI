@@ -1,11 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from './core/guards/auth-guard';
-import { permissionGuard } from './core/guards/permission-guard';
-
-import { LoginComponent }
-    from './features/auth/components/login/login.component'
-
 import { CategoryCreateComponent }
     from './features/categories/components/category-create/category-create.component';
 import { CategoryEditComponent }
@@ -29,38 +23,21 @@ import { CategoryDeleteComponent }
 export const routes: Routes = [
     {
         path: 'categories',
-        pathMatch: 'prefix',                        // match with '/categories', '/categories/edit/10', '/categories/create', etc.
-        canActivate: [authGuard, permissionGuard],  /* AuthGuard and PermissionGuard */
-        data: { permission: 'CanViewCategory' },    // match permission(s)
+        pathMatch: 'prefix',              // match with '/categories', '/categories/edit/10', '/categories/create', etc.
         loadComponent: () =>
             import('./features/categories/components/category-list/category-list.component')
                 .then(m => m.CategoryListComponent)
     },
     {
         path: 'categories/create',
-        component: CategoryCreateComponent,
-        canActivate: [authGuard, permissionGuard],  
-        data: { permission: 'CanAddCategory' }      
+        component: CategoryCreateComponent
     },
     {
         path: 'categories/edit/:id',
-        component: CategoryEditComponent,
-        canActivate: [authGuard, permissionGuard],
-        data: { permission: 'CanEditCategory' }      
+        component: CategoryEditComponent
     },
     {
         path: 'categories/delete/:id',
-        component: CategoryDeleteComponent,
-        canActivate: [authGuard, permissionGuard],
-        data: { permission: 'CanDeleteCategory' }      
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: '',                           /* Default Route */
-        redirectTo: 'categories',
-        pathMatch: 'full'
+        component: CategoryDeleteComponent
     }
 ];

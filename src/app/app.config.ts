@@ -1,10 +1,8 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-
 import { httpErrorInterceptor } from './core/interceptors/http-error.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 import { routes } from './app.routes';
 
@@ -17,24 +15,23 @@ import { AppConfig } from './core/config/app-config.interface';
  * In enterprise systems, this can later be loaded from external JSON.
  */
 const runtimeConfig: AppConfig = {
-    apiBaseUrl: 'https://localhost:7123/api'
+  apiBaseUrl: 'https://localhost:7123/api'
 };
 
 
 export const appConfig: ApplicationConfig = {
-    providers: [								  // similar to the DI container collection in .NET
-        provideBrowserGlobalErrorListeners(),
-        provideRouter(routes),
-        provideHttpClient(
-            withInterceptors([
-                authInterceptor,                 // attach JWT firt
-                loadingInterceptor,              // then, show loading (to ensure loading stops even if error occurs)
-                httpErrorInterceptor             // and then, handle errors globally
-            ])
-        ),
-        {
-            provide: APP_CONFIG,
-            useValue: runtimeConfig
-        }
-    ]
+  providers: [                                // like the dependecy-injection container collection
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([
+        loadingInterceptor,                   // loading first (to ensure loading stops even if error occurs)
+        httpErrorInterceptor                  // error second
+      ])
+    ),
+    {
+      provide: APP_CONFIG,                    // register the token defined in 'app-config.token.ts' file   
+      useValue: runtimeConfig
+    }
+  ]
 };

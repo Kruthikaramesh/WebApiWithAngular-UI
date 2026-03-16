@@ -5,59 +5,55 @@ import { RouterLink } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { CategoryReadModel } from '../../models/category-read.model';
 import { AppHttpError } from '../../../../core/models/app-http-error.model';
-import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
-    selector: 'app-category-list',
-    standalone: true,
-    imports: [CommonModule, RouterLink],
-    templateUrl: './category-list.component.html',
-    styleUrl: './category-list.component.css'
+  selector: 'app-category-list',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './category-list.component.html',
+  styleUrl: './category-list.component.css'
 })
 export class CategoryListComponent implements OnInit {
 
-    /** Inject CategoryService using Angular's inject() API */
-    private readonly categoryService = inject(CategoryService);
+  /** Inject CategoryService using Angular's inject() API */
+  private readonly categoryService = inject(CategoryService);
 
-    /** Inject AuthService using Angular's inject() API */
-    public readonly authService = inject(AuthService);
+  /** Holds categories returned from API */
+  categories: CategoryReadModel[] = [];
 
-    /** Holds categories returned from API */
-    categories: CategoryReadModel[] = [];
-
-    /** Error message shown in UI */
-    errorMessage: string | null = null;
+  /** Error message shown in UI */
+  errorMessage: string | null = null;
 
 
-    ngOnInit(): void {
-        this.loadCategories();
-    }
+  ngOnInit(): void {
+    this.loadCategories();
+  }
 
 
-    /**
-     * Loads all Categories from the API.
-     */
-    loadCategories(): void {
+  /**
+   * Loads all Categories from the API.
+   */
+  loadCategories(): void {
 
-        this.categoryService.getAll().subscribe({
+    this.categoryService.getAll().subscribe({
 
-            next: (data) => {
-                this.categories = data;
-            },
+      next: (data) => {
+        this.categories = data;
+      },
 
-            error: (error: AppHttpError) => {
+      error: (error: AppHttpError) => {
 
-                if (error.detail) {
-                    this.errorMessage = error.detail;
-                } else {
-                    this.errorMessage = 'Failed to load categories.';
-                }
+        if (error.detail) {
+          this.errorMessage = error.detail;
+        } else {
+          this.errorMessage = 'Failed to load categories.';
+        }
 
-            }
+      }
 
-        });
+    });
 
-    }
+  }
 
 
 }

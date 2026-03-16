@@ -5,9 +5,6 @@ import { vi } from 'vitest';
 // Angular Router providers required for RouterLink usage in the template
 import { provideRouter } from '@angular/router';
 
-import { APP_CONFIG } from '../../../../core/config/app-config.token';
-import { AppConfig } from '../../../../core/config/app-config.interface';
-
 import { CategoryListComponent } from './category-list.component';
 import { CategoryService } from '../../services/category.service';
 import { CategoryReadModel } from '../../models/category-read.model';
@@ -30,21 +27,12 @@ describe('CategoryListComponent', () => {
     let component: CategoryListComponent;
     let fixture: ComponentFixture<CategoryListComponent>;
 
-
     /**
      * Mock implementation of CategoryService.
      * Only the methods used by the component are mocked.
      */
     let categoryServiceMock: {
         getAll: ReturnType<typeof vi.fn>;
-    };
-
-
-    /**
-     * Mock implementation of Configuration.
-     */
-    const mockConfig: AppConfig = {
-        apiBaseUrl: 'https://test-api'
     };
 
 
@@ -70,12 +58,6 @@ describe('CategoryListComponent', () => {
 
                 // Required because the template uses routerLink
                 provideRouter([]),
-
-                // Provide runtime configuration required by AuthService
-                {
-                    provide: APP_CONFIG,
-                    useValue: mockConfig
-                },
 
                 // Replace real service with mocked implementation
                 {

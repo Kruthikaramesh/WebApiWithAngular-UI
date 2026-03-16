@@ -14,16 +14,6 @@ Reason for naming the DTO models for Category and Product, the same as backend:
 
 ----
 
-## Setup Visual Studio for Angular Development:
-
-Add the **Visual Studio Extension**:
-
-`Angular Language Service 2022`
-
-This will provide development support for Angular in Visual Studio 2026.
-
-----
-
 ## Step 01: Create Project
 
 1. Create new Angular Project.
@@ -472,19 +462,9 @@ Register the route to the component in the `src/app/app.routes.ts` file:
     pathMatch: 'prefix',
     loadComponent: () =>
       import('./features/categories/components/category-create/category-create.component')
-        .then(m => m.CategoryCreateComponent)
-  }
-
-  OR 
-
-  ,
-  {
-    path: 'categories/create',
-    component: CategoryCreateComponent
+        .then(m => m.CategoryCreate)
   }
 ```
-
-Remember, `pathMatch` is `prefix` by default.
 
 - Check if the component builds and tests properly.
 - Run the application to check if the route works.
@@ -546,7 +526,7 @@ Don't forget to update the references in the `category-edit.component.ts` file:
 ```
 and in the reference in the `category-edit.component.spec.ts` file:
 ```
-    import { CategoryEditComponent } from './category-edit.component';
+    import { CategoryEdit } from './category-edit.component';
 ```
 
 Next, check if the generated component builds and tests properly
